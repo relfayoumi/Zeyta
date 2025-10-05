@@ -1,0 +1,16 @@
+torch
+transformers
+faster-whisper
+SpeechRecognition
+numpy
+pyttsx3
+sounddevice
+piper
+onnxruntime
+PyAudio
+librosa
+scipy
+soundfile
+TTS
+gradio_client
+chatterbox-tts

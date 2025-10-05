@@ -1,0 +1,75 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+.venv/
+venv/
+ENV/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environment
+.venv/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Cache
+cache/
+__pycache__/
+*.pyc
+
+# Logs
+chat_logs/
+*.log
+
+# Audio files (temp/generated)
+*.wav
+!piper/*.wav
+temp_*.wav
+test-*.wav
+output*.wav
+best*.wav
+MomoAIRecording.wav
+
+# Profiling
+profile.out
+*.prof
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Large directories
+NVIDIA GPU Computing Toolkit/
+Documents/
+
+# Piper voice models (optional - comment out if you want to include them)
+piper/*.onnx
+piper/*.dll
+piper/espeak-ng-data/
+
+# Keep specific files
+!piper/DEMO.txt
+!piper/*.json
