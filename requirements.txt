@@ -1,0 +1,23 @@
+torch
+transformers
+faster-whisper
+SpeechRecognition
+numpy
+pyttsx3
+sounddevice
+webrtcvad
+piper
+onnxruntime
+PyAudio
+librosa
+scipy
+soundfile
+TTS
+gradio_client
+gradio
+chatterbox-tts
+# Optional: For document upload support in app.py
+PyPDF2
+python-docx
+# Optional: For standalone window mode in app.py
+pywebview
