@@ -24,6 +24,9 @@ wheels/
 .installed.cfg
 *.egg
 
+# Personal Configuration (use config.example.py as template)
+config.py
+
 # Virtual Environment
 .venv/
 
