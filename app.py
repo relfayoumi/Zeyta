@@ -499,13 +499,62 @@ if __name__ == "__main__":
     
     print()
     print("=" * 60)
-    print("🌐 Launching application...")
+    print("🖥️  Launching application in standalone window...")
     print("=" * 60)
     
     app = create_app()
-    app.launch(
-        server_name="0.0.0.0",
-        server_port=7860,
-        share=False,
-        show_error=True
-    )
+    
+    # Try to launch in a standalone window using webview
+    try:
+        import webview
+        import threading
+        
+        # Start Gradio server in a thread
+        def start_server():
+            app.launch(
+                server_name="127.0.0.1",
+                server_port=7860,
+                share=False,
+                show_error=True,
+                inbrowser=False,  # Don't open browser
+                quiet=True
+            )
+        
+        # Start server in background thread
+        server_thread = threading.Thread(target=start_server, daemon=True)
+        server_thread.start()
+        
+        # Wait a moment for server to start
+        import time
+        time.sleep(2)
+        
+        # Create and show the window
+        print("✅ Opening application window...")
+        webview.create_window(
+            "Zeyta AI Assistant",
+            "http://127.0.0.1:7860",
+            width=1400,
+            height=900,
+            resizable=True,
+            fullscreen=False,
+            min_size=(800, 600)
+        )
+        webview.start()
+        
+    except ImportError:
+        print("⚠️  pywebview not installed - falling back to browser mode")
+        print("   Install with: pip install pywebview")
+        print("   For best experience on different platforms:")
+        print("   - Windows: pip install pywebview[cef]")
+        print("   - Linux: pip install pywebview[qt]")
+        print("   - macOS: pip install pywebview[qt]")
+        print()
+        print("🌐 Opening in browser instead...")
+        
+        # Fallback to browser mode
+        app.launch(
+            server_name="0.0.0.0",
+            server_port=7860,
+            share=False,
+            show_error=True
+        )

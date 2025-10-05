@@ -19,6 +19,14 @@ pip install -r requirements.txt
 
 # Optional: For document support
 pip install PyPDF2 python-docx
+
+# Optional: For standalone window mode (recommended)
+pip install pywebview
+
+# Platform-specific enhancements (optional):
+# Windows: pip install pywebview[cef]
+# Linux: pip install pywebview[qt]
+# macOS: pip install pywebview[qt]
 ```
 
 ### Running the Application
@@ -27,7 +35,18 @@ pip install PyPDF2 python-docx
 python app.py
 ```
 
-The application will launch at `http://localhost:7860`
+The application will launch in a **standalone window** (if pywebview is installed) or in your default browser.
+
+**Standalone Window Mode (Recommended):**
+- Runs as a native desktop application
+- No browser required
+- Better compatibility and user experience
+- Install pywebview to enable: `pip install pywebview`
+
+**Browser Mode (Fallback):**
+- Opens in your default web browser
+- Used if pywebview is not installed
+- Access at `http://localhost:7860`
 
 ## Pipeline Modes
 
@@ -142,6 +161,16 @@ Result: Hear the action items read aloud
 5. **Clear chat**: Use the Clear button to start fresh conversations
 
 ## Troubleshooting
+
+### Application opens in browser instead of window
+- Install pywebview for standalone window mode:
+  ```bash
+  pip install pywebview
+  ```
+- Platform-specific enhancements:
+  - Windows: `pip install pywebview[cef]`
+  - Linux: `pip install pywebview[qt]`
+  - macOS: `pip install pywebview[qt]`
 
 ### "Model not initialized" error
 - Click the appropriate initialization button in Model Setup

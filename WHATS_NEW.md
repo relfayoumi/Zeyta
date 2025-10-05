@@ -2,18 +2,22 @@
 
 ## New Python Application: `app.py`
 
-We've created a brand new user-friendly Python application that makes it easy to:
-- 💬 Chat with AI in your browser
+We've created a brand new user-friendly Python application that runs in **its own standalone window**:
+- 🖥️ Runs as a native desktop application (no browser needed!)
+- 💬 Chat with AI in a clean interface
 - 📎 Upload and discuss documents (PDF, DOCX, TXT, MD)
 - 🔧 Choose how you want to interact (text, voice, or both)
 
 ## Quick Start
 
 ```bash
+# Install for standalone window mode (recommended)
+pip install pywebview
+
 # Run the application
 python app.py
 
-# Open your browser to http://localhost:7860
+# The app opens in its own window!
 
 # Click "Initialize LLM" to start
 
@@ -21,6 +25,12 @@ python app.py
 ```
 
 ## What Makes This Special?
+
+### 0. Standalone Desktop Application
+- Runs in its own window - no browser required
+- Better compatibility across systems
+- Native desktop application experience
+- Automatically falls back to browser mode if pywebview not installed
 
 ### 1. Flexible Pipeline Configuration
 Choose exactly which AI components you want to use:
@@ -46,9 +56,10 @@ Ask: "What are the action items?"
 AI: Reads the document and extracts action items
 ```
 
-### 3. User-Friendly Interface
-- Clean, modern web interface
-- No command-line knowledge needed
+### 3. Standalone Desktop Application
+- Runs in its own window (not in browser)
+- Native desktop application experience
+- Better compatibility and performance
 - Visual status indicators
 - Helpful error messages
 - Built-in quick guide

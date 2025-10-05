@@ -94,13 +94,14 @@ python testing/integrated_app.py
 
 ## 🚀 AI Assistant Application
 
-We provide a user-friendly application for daily use:
+We provide a user-friendly application for daily use that runs in **its own standalone window**:
 
 ```bash
 python app.py
 ```
 
 **Features:**
+- 🖥️ **Standalone Window**: Runs as a native desktop application (no browser needed)
 - 💬 **Chat Interface**: Clean, intuitive chat window
 - 📎 **File Upload**: Upload and discuss documents (TXT, PDF, DOCX, MD)
 - 🔧 **Pipeline Configuration**: Choose your processing mode:
@@ -109,6 +110,11 @@ python app.py
   - Voice to Voice (STT → LLM → TTS)
   - Text to Voice (LLM → TTS)
 - 🎤 **Voice Input/Output**: Full voice conversation support
+
+**Installation for standalone window mode:**
+```bash
+pip install pywebview
+```
 
 See [`APP_GUIDE.md`](APP_GUIDE.md) for detailed documentation.
 

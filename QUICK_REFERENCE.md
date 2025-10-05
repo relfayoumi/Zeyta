@@ -3,18 +3,21 @@
 ## One-Minute Start Guide
 
 ```bash
-# 1. Install
+# 1. Install (including standalone window support)
 pip install -r requirements.txt
+pip install pywebview
 
 # 2. Run
 python app.py
 
-# 3. Open browser at http://localhost:7860
+# 3. Application opens in its own window!
 
 # 4. Initialize LLM model (click "Initialize LLM" button)
 
 # 5. Start chatting!
 ```
+
+**Note:** The app runs in a standalone window. If pywebview is not installed, it will open in your browser instead.
 
 ## Pipeline Modes Quick Reference
 
@@ -158,6 +161,7 @@ Message: "Review and improve this code"
 
 ## Default Configuration
 
+- **Window Mode**: Standalone (with pywebview) or Browser (fallback)
 - **LLM Model**: Llama-3.2-3B-Instruct-uncensored
 - **STT Model**: Whisper base
 - **TTS Device**: CUDA (if available) or CPU
@@ -191,6 +195,7 @@ Having issues? Check:
 ## Version Info
 
 Application: Zeyta AI Assistant (app.py)
+Mode: Standalone Window (recommended) or Browser (fallback)
 Python: 3.11+
-UI: Gradio
+UI: Gradio + pywebview
 License: See LICENSE
