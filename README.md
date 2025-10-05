@@ -30,6 +30,7 @@ The project is organized into a modular structure to separate concerns and impro
 - **`testing/`**: TTS optimization scripts
   - `test_tts_clean.py`: Standalone TTS testing with optimizations
   - `tts_server.py`: Persistent TTS server mode
+  - `integrated_app.py`: Web-based testing interface for all components
 - **`tests/`**: Unit tests for the modules
 
 ## Setup
@@ -83,7 +84,26 @@ python testing/test_tts_clean.py --ref-dir IO/AudioRef_48kHz --blend-voices --te
 
 # Or run TTS server mode (for development)
 python testing/tts_server.py
+
+# Or launch the integrated testing app (recommended for testing)
+python testing/integrated_app.py
 ```
+
+## 🧪 Integrated Testing App
+
+We provide a comprehensive web-based testing interface for all AI components:
+
+```bash
+python testing/integrated_app.py
+```
+
+The app provides:
+- 🗣️ **TTS Testing**: Test ChatterboxTTS models with voice cloning
+- 🎤 **STT Testing**: Test Whisper models with microphone support
+- 💬 **LLM Chat**: Interactive text-to-text chat interface
+- 🔄 **Full Pipeline**: Test complete STT → LLM → TTS workflow
+
+See [`testing/INTEGRATED_APP.md`](testing/INTEGRATED_APP.md) for detailed documentation.
 
 ## TTS Optimization Features
 
