@@ -29,7 +29,12 @@ class ContextManager:
 
     # ---------------- Core API ----------------
     def add_message(self, role: str, content: str) -> None:
-        self.messages.append({"role": role, "content": content})
+        timestamp = datetime.now().isoformat()
+        self.messages.append({
+            "role": role, 
+            "content": content,
+            "timestamp": timestamp
+        })
         logging.info(f"[context] add_message role={role}; total={len(self.messages)}")
         if self.auto_save:
             self._write_session()
@@ -92,5 +97,60 @@ class ContextManager:
             except Exception:
                 continue
         return results
+
+    def format_search_results_for_context(self, results: List[Dict[str, str]]) -> str:
+        """Format search results into a readable string for LLM context."""
+        if not results:
+            return "No relevant past conversations found."
+        
+        formatted = "Relevant past conversations:\n\n"
+        for i, msg in enumerate(results, 1):
+            role = msg.get("role", "unknown")
+            content = msg.get("content", "")
+            timestamp = msg.get("timestamp", "unknown time")
+            file = msg.get("file", "unknown session")
+            
+            formatted += f"{i}. [{timestamp}] {role}: {content}\n"
+        
+        return formatted
+
+    def detect_memory_query(self, user_input: str) -> bool:
+        """Detect if user is asking about past conversations."""
+        memory_keywords = [
+            "remember", "recall", "what did", "earlier", "before",
+            "previous", "last time", "you said", "we talked about",
+            "mentioned", "discussed", "conversation about"
+        ]
+        user_lower = user_input.lower()
+        return any(keyword in user_lower for keyword in memory_keywords)
+
+    def search_and_format_memories(self, query: str, limit: int = 5) -> Optional[str]:
+        """Search past conversations and format results for LLM context.
+        
+        Args:
+            query: The search query (user's message)
+            limit: Maximum number of results to return
+            
+        Returns:
+            Formatted string of past conversations, or None if no results
+        """
+        # Extract key terms from the query (simple approach: use words longer than 3 chars)
+        words = query.split()
+        search_terms = [w.strip(".,!?") for w in words if len(w.strip(".,!?")) > 3]
+        
+        all_results = []
+        for term in search_terms:
+            results = self.search_past(term, limit=limit)
+            for r in results:
+                # Avoid duplicates
+                if r not in all_results:
+                    all_results.append(r)
+            if len(all_results) >= limit:
+                break
+        
+        if not all_results:
+            return None
+        
+        return self.format_search_results_for_context(all_results[:limit])
 
 __all__ = ["ContextManager"]

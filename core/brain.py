@@ -4,12 +4,18 @@ from transformers import pipeline
 import logging
 from config import LLM_MODEL_ID, GENERATION_ARGS, INITIAL_GEN_ARGS
 
+try:
+    from config import ENABLE_HISTORY_SEARCH
+except ImportError:
+    ENABLE_HISTORY_SEARCH = True  # Default to enabled if not configured
+
 class Brain:
     """
     Handles loading the Language Model and generating text responses.
     """
-    def __init__(self):
+    def __init__(self, context_manager=None):
         self.pipe = self._load_model()
+        self.context_manager = context_manager
 
     def _load_model(self):
         """Loads the text-generation pipeline."""
@@ -39,6 +45,28 @@ class Brain:
             return "My brain isn't working right now."
 
         try:
+            # Check if the latest user message is a memory query
+            if ENABLE_HISTORY_SEARCH and self.context_manager and not initial and len(messages) > 1:
+                latest_message = messages[-1]
+                if latest_message.get("role") == "user":
+                    user_input = latest_message.get("content", "")
+                    
+                    # Detect memory query and search past conversations
+                    if self.context_manager.detect_memory_query(user_input):
+                        logging.info("[brain] Memory query detected, searching past conversations...")
+                        memories = self.context_manager.search_and_format_memories(user_input, limit=5)
+                        
+                        if memories:
+                            # Inject memory context before the user's message
+                            messages_with_memory = messages[:-1].copy()
+                            messages_with_memory.append({
+                                "role": "system",
+                                "content": f"[MEMORY RECALL]\n{memories}\n\nUse the above past conversation context to answer the user's question if relevant."
+                            })
+                            messages_with_memory.append(latest_message)
+                            messages = messages_with_memory
+                            logging.info(f"[brain] Injected {len(memories.splitlines())} lines of memory context")
+            
             # Use different generation arguments for the initial greeting
             gen_args = INITIAL_GEN_ARGS if initial else GENERATION_ARGS
             

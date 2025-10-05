@@ -1,0 +1,132 @@
+┌─────────────────────────────────────────────────────────────────────┐
+│                    HISTORY CONTROL FEATURE                          │
+│                  Simulated Long-Term Memory                         │
+└─────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────┐
+│  WORKFLOW DIAGRAM                                                   │
+└─────────────────────────────────────────────────────────────────────┘
+
+   USER INPUT
+       │
+       ├─────> "Do you remember what I said about Python?"
+       │
+       v
+   ┌──────────────────┐
+   │  Context Manager │  (detect_memory_query)
+   │  Detects keyword │ 
+   │  "remember"      │
+   └────────┬─────────┘
+            │ YES → Memory Query Detected
+            v
+   ┌──────────────────────┐
+   │  Extract Search Terms│  (search_and_format_memories)
+   │  "Python"            │
+   └──────────┬───────────┘
+              │
+              v
+   ┌────────────────────────────┐
+   │  Search Past Chat Logs     │  (search_past)
+   │  chat_logs/                │
+   │  ├─ chat_2024-01-01.json   │
+   │  ├─ chat_2024-01-02.json   │
+   │  └─ chat_2024-01-03.json   │
+   └──────────┬─────────────────┘
+              │
+              v
+   ┌─────────────────────────────┐
+   │  Find Matching Messages     │
+   │  [2024-01-01T10:00] user:   │
+   │  "I'm learning Python..."   │
+   └──────────┬──────────────────┘
+              │
+              v
+   ┌───────────────────────────────┐
+   │  Format for LLM Context       │  (format_search_results_for_context)
+   │  "[MEMORY RECALL]             │
+   │  1. [timestamp] role: content │
+   │  2. [timestamp] role: content"│
+   └──────────┬────────────────────┘
+              │
+              v
+   ┌────────────────────────────────┐
+   │  Inject into Message History  │  (Brain.generate_response)
+   │  [system, user, assistant, ... │
+   │   {role: "system",             │
+   │    content: "[MEMORY RECALL]"} │
+   │   {role: "user", ...}]         │
+   └──────────┬─────────────────────┘
+              │
+              v
+   ┌────────────────────────────┐
+   │  LLM Generates Response    │
+   │  with past context         │
+   │  "Yes, I remember! You     │
+   │  mentioned learning Python"│
+   └────────────┬───────────────┘
+                │
+                v
+            RESPONSE TO USER
+
+
+┌─────────────────────────────────────────────────────────────────────┐
+│  CHAT LOG STRUCTURE                                                 │
+└─────────────────────────────────────────────────────────────────────┘
+
+chat_logs/
+└── chat_2024-01-01_10-30-45.json
+    [
+      {
+        "role": "system",
+        "content": "You are a helpful AI assistant."
+      },
+      {
+        "role": "user",
+        "content": "I'm learning Python programming.",
+        "timestamp": "2024-01-01T10:30:45.123456"  ← NEW!
+      },
+      {
+        "role": "assistant",
+        "content": "That's great! Python is excellent.",
+        "timestamp": "2024-01-01T10:30:47.234567"  ← NEW!
+      }
+    ]
+
+┌─────────────────────────────────────────────────────────────────────┐
+│  MEMORY DETECTION KEYWORDS                                          │
+└─────────────────────────────────────────────────────────────────────┘
+
+✓ remember          ✓ last time
+✓ recall            ✓ you said
+✓ what did          ✓ we talked about
+✓ earlier           ✓ mentioned
+✓ before            ✓ discussed
+✓ previous          ✓ conversation about
+
+┌─────────────────────────────────────────────────────────────────────┐
+│  CONFIGURATION                                                      │
+└─────────────────────────────────────────────────────────────────────┘
+
+config.py:
+  ENABLE_HISTORY_SEARCH = True    # Enable/disable feature
+  CHAT_QUERY_MAX_RESULTS = 5      # Max results to return
+  CHAT_LOG_DIR = "chat_logs"      # Where logs are stored
+
+┌─────────────────────────────────────────────────────────────────────┐
+│  KEY COMPONENTS                                                     │
+└─────────────────────────────────────────────────────────────────────┘
+
+1. ContextManager (core/context.py)
+   ├── add_message() - Adds timestamp to each message
+   ├── detect_memory_query() - Detects memory keywords
+   ├── search_past() - Searches past logs
+   ├── format_search_results_for_context() - Formats results
+   └── search_and_format_memories() - Integrated search
+
+2. Brain (core/brain.py)
+   ├── __init__(context_manager) - Accepts context manager
+   └── generate_response() - Integrates memory search
+
+3. Controller (core/controller.py)
+   └── conversation_loop() - Passes context to Brain
+

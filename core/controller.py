@@ -51,8 +51,8 @@ def conversation_loop():
 
     try:
         # --- Initialization ---
-        brain = Brain()
         context = ContextManager(SYSTEM_PROMPT)
+        brain = Brain(context_manager=context)
         stt.initialize_stt()
         tts.initialize_tts()
 
