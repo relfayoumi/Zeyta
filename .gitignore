@@ -49,6 +49,7 @@ chat_logs/
 # Audio files (temp/generated)
 *.wav
 !piper/*.wav
+!piper/test*.wav
 temp_*.wav
 test-*.wav
 output*.wav
@@ -64,15 +65,38 @@ profile.out
 Thumbs.db
 desktop.ini
 
-# Large directories
-NVIDIA GPU Computing Toolkit/
+# Testing outputs
+testing/outputs/
+outputs/
+
+# Temporary files
+temp_combined_reference.wav
 Documents/
 
-# Piper voice models (optional - comment out if you want to include them)
+# Keep important directories (explicit tracking)
+!NVIDIA GPU Computing Toolkit/.gitkeep
+!piper/.gitkeep
+!core/
+!integrations/
+!IO/
+!utils/
+!testing/
+
+# Piper voice models and large files (excluded from git)
 piper/*.onnx
 piper/*.dll
-piper/espeak-ng-data/
+piper/piper.exe
+
+# NVIDIA CUDA Toolkit (too large for GitHub)
+NVIDIA GPU Computing Toolkit/
 
 # Keep specific files
 !piper/DEMO.txt
 !piper/*.json
+
+# Web interface files (standalone app only)
+testing/integrated_app.py
+testing/launch_app.*
+testing/*.md
+!testing/README.md
+

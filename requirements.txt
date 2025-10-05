@@ -5,6 +5,7 @@ SpeechRecognition
 numpy
 pyttsx3
 sounddevice
+webrtcvad
 piper
 onnxruntime
 PyAudio
