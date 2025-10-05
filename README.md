@@ -76,7 +76,10 @@ cp config.example.py config.py
 ### 4. Running
 
 ```bash
-# Run the voice assistant
+# Run the interactive AI assistant app (recommended for daily use)
+python app.py
+
+# Or run the voice assistant (command-line)
 python main.py
 
 # Or test TTS independently
@@ -85,19 +88,39 @@ python testing/test_tts_clean.py --ref-dir IO/AudioRef_48kHz --blend-voices --te
 # Or run TTS server mode (for development)
 python testing/tts_server.py
 
-# Or launch the integrated testing app (recommended for testing)
+# Or launch the integrated testing app (for model testing)
 python testing/integrated_app.py
 ```
 
+## 🚀 AI Assistant Application
+
+We provide a user-friendly application for daily use:
+
+```bash
+python app.py
+```
+
+**Features:**
+- 💬 **Chat Interface**: Clean, intuitive chat window
+- 📎 **File Upload**: Upload and discuss documents (TXT, PDF, DOCX, MD)
+- 🔧 **Pipeline Configuration**: Choose your processing mode:
+  - Text Chat Only (LLM)
+  - Voice to Text (STT → LLM)
+  - Voice to Voice (STT → LLM → TTS)
+  - Text to Voice (LLM → TTS)
+- 🎤 **Voice Input/Output**: Full voice conversation support
+
+See [`APP_GUIDE.md`](APP_GUIDE.md) for detailed documentation.
+
 ## 🧪 Integrated Testing App
 
-We provide a comprehensive web-based testing interface for all AI components:
+For model testing and development:
 
 ```bash
 python testing/integrated_app.py
 ```
 
-The app provides:
+The testing app provides:
 - 🗣️ **TTS Testing**: Test ChatterboxTTS models with voice cloning
 - 🎤 **STT Testing**: Test Whisper models with microphone support
 - 💬 **LLM Chat**: Interactive text-to-text chat interface

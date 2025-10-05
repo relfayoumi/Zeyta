@@ -15,3 +15,6 @@ TTS
 gradio_client
 gradio
 chatterbox-tts
+# Optional: For document upload support in app.py
+PyPDF2
+python-docx
