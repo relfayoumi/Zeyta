@@ -32,6 +32,7 @@ FAREWELL_MESSAGE = "Goodbye! Have a great day!"
 CHAT_LOG_DIR = "chat_logs"
 INTEGRATE_PAST_LOGS = False  # if True, old chats are merged into context
 CHAT_QUERY_MAX_RESULTS = 5   # used if implementing search / query features
+ENABLE_HISTORY_SEARCH = True  # if True, enables automatic memory search on keywords
 
 # --- Pipeline Generation Arguments ---
 GENERATION_ARGS = {
