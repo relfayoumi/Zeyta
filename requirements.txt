@@ -13,4 +13,5 @@ scipy
 soundfile
 TTS
 gradio_client
+gradio
 chatterbox-tts
