@@ -2,6 +2,8 @@
 
 A comprehensive, user-friendly web application for testing all components of the Zeyta AI Assistant.
 
+**👉 New to the app? See [QUICK_START.md](QUICK_START.md) for a beginner-friendly guide!**
+
 ## Features
 
 ### 🗣️ Text-to-Speech (TTS) Testing
