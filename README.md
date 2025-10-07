@@ -189,7 +189,7 @@ python app.py
 pip install pywebview
 ```
 
-See [`APP_GUIDE.md`](APP_GUIDE.md) for detailed documentation.
+See [`docs/APP_GUIDE.md`](docs/APP_GUIDE.md) for detailed documentation.
 
 ## 🧪 Integrated Testing App
 
@@ -404,6 +404,20 @@ pip install chatterbox-tts
 3. **Tune Generation Args**: Lower temperature/tokens for faster responses
 4. **Voice Cloning**: Use 5-10 second reference audio
 5. **Memory Pinning**: Enabled automatically for CUDA
+
+## Documentation
+
+Comprehensive documentation is available in the `docs/` directory:
+
+- **[APP_GUIDE.md](docs/APP_GUIDE.md)** - Complete user guide for the web application
+- **[ARCHITECTURE.md](docs/ARCHITECTURE.md)** - System architecture and design
+- **[FEATURE_SHOWCASE.md](docs/FEATURE_SHOWCASE.md)** - Feature overview and examples
+- **[QUICK_REFERENCE.md](docs/QUICK_REFERENCE.md)** - Quick reference guide
+- **[USAGE_EXAMPLES.md](docs/USAGE_EXAMPLES.md)** - Usage scenarios and examples
+
+Additional resources:
+- **[examples/](examples/)** - Demo scripts and examples
+- **[testing/](testing/)** - Testing tools and utilities
 
 ## License
 
