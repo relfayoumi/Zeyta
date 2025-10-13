@@ -199,7 +199,7 @@ python tests/test_history_control.py
 ### Run Demonstration
 
 ```bash
-python demo_history_control.py
+python examples/demo_history_control.py
 ```
 
 The demonstration script shows:
